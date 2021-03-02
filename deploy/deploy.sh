@@ -16,16 +16,15 @@ echo $Descriptor
 echo $DetachedMode
 echo $DockerComposeFile
 
-rm -rf ./$DeployType/$InstanceID 
+# ex. https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-arm64.yml
+wget -P ../artifacts "$DockerComposeFile"
+
+rm -rf ./$DeployType/$InstanceID/$ServiceName
 mkdir -p ./$DeployType/$InstanceID/$ServiceName
+cp -R ../artifacts/${DockerComposeFile##*/} ./$DeployType/$InstanceID/$ServiceName/docker-compose.yml
 
-#cp -R ../artifacts/$Descriptor ./$DeployType/$InstanceID
-# https://raw.githubusercontent.com/edgexfoundry/developer-scripts/master/releases/hanoi/compose-files/docker-compose-hanoi-arm64.yml
-wget -P $DeployType/$InstanceID "$DockerComposeFile"
-mv *.yml docker-compose.yml
-
-cd ./$DeployType/$InstanceID
-echo "Deploy from $DeployType/$InstanceID"
+cd ./$DeployType/$InstanceID/$ServiceName
+echo "Deploy from $DeployType/$InstanceID/$ServiceName"
 
 Mode=""
 if [ "y"==$DetachedMode ]
