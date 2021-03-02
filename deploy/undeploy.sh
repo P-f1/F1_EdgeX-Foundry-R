@@ -14,7 +14,7 @@ echo $InstanceID
 echo $Username
 echo $TargetServer
 
-cd ./$DeployType/$InstanceID
+cd ./$DeployType/$InstanceID/$ServiceName
 
 
 if [[ -v TargetServer ]]
